@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: qlhb-system.com.vn
+      http:
+        paths: 
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: spring-boot-app
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: react-app
+                port:
+                  number: 5173

@@ -1,0 +1,28 @@
+client:
+  replicas: 1
+  image: b2012283/client-app
+  type: ClusterIP
+  port: 5173
+
+springboot:
+  replicas: 2
+  image: b2012283/back-end-test
+  port: 8080
+  type: ClusterIP
+
+secret:
+  rootpass: dHYxNjEyMjAwMg==
+  userpass: dHYxNjEyMjAwMg==
+
+configmap:
+  username: vinhtruong
+  dbname: testapp
+
+ingress:
+  hostname: qlhb-system.com.vn
+  paths:
+    path1: /api
+    path2: /
+
+mysql:
+  image: mysql:8.0.32

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-react-app
+  labels:
+    app: {{ .Release.Name }}-react-app
+spec:
+  replicas: {{ .Values.client.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-react-app
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-react-app
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-react-app
+        image: {{ .Values.client.image }}
+        ports:
+        - containerPort: {{ .Values.client.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-react-app
+spec:
+  type: {{ .Values.client.type }}
+  selector:
+    app: {{ .Release.Name }}-react-app
+  ports:
+    - port: {{ .Values.client.port }}
+      targetPort: {{ .Values.client.port }}
